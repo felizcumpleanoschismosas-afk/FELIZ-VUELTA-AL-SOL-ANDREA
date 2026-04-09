@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <title>🌸</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#fdeff4">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0) 28%),
+        radial-gradient(circle at 80% 14%, rgba(255,230,238,0.55) 0%, rgba(255,230,238,0) 30%),
+        radial-gradient(circle at center, #fff9fb 0%, #fdebf2 52%, #f8d7e4 100%);
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
+
+    #scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    .flower, .sparkle, .glitter {
+      position: absolute;
+      top: -14vh;
+      pointer-events: none;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      user-select: none;
+      will-change: transform, opacity;
+    }
+
+    .flower {
+      animation-name: fallFlower;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      z-index: 1;
+      filter: drop-shadow(0 2px 6px rgba(255,255,255,0.22));
+    }
+
+    .sparkle {
+      animation-name: fallSparkle;
+      z-index: 2;
+    }
+
+    .glitter {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.92), rgba(255,210,225,0.72));
+      box-shadow: 0 0 8px rgba(255,255,255,0.65);
+      animation-name: fallGlitter;
+      z-index: 1;
+    }
+
+    @keyframes fallFlower {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(360deg); }
+    }
+
+    @keyframes fallSparkle {
+      0% { transform: translateY(-10vh); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    @keyframes fallGlitter {
+      0% { transform: translateY(-10vh); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    #message {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.8s ease, transform 1.8s ease;
+      z-index: 5;
+    }
+
+    #message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #card {
+      max-width: 88vw;
+      padding: 28px 24px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(146, 95, 117, 0.12);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.30);
+    }
+
+    .intro {
+      font-family: "Great Vibes", cursive;
+      font-size: 2rem;
+      color: #b66b89;
+      margin-bottom: 12px;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    }
+
+    .phrase {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.95rem;
+      color: #6b4050;
+      line-height: 1.25;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.20);
+    }
+
+    @media (max-width: 480px) {
+      .intro {
+        font-size: 1.95rem;
+      }
+
+      .phrase {
+        font-size: 1.78rem;
+      }
+
+      #card {
+        padding: 25px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="scene">
+    <div id="message">
+      <div id="card">
+        <div class="intro">ANDREA</div>
+        <div class="phrase">
+          Este año cuenta más de lo que parece.<br>
+          No todas las flores llegan por edad.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const flowers = ["🌸","🌷","🌹","🌺","🪷","🍃"];
+    const sparkles = ["✨","💫","✧"];
+
+    const scene = document.getElementById("scene");
+    const message = document.getElementById("message");
+
+    function createFlower() {
+      const el = document.createElement("div");
+      el.className = "flower";
+      el.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (4.5 + Math.random() * 2.2) + "s";
+      el.style.fontSize = (40 + Math.random() * 24) + "px";
+      el.style.opacity = 0.72 + Math.random() * 0.24;
+      scene.appendChild(el);
+      setTimeout(() => el.remove(), 7500);
+    }
+
+    function createSparkle() {
+      const el = document.createElement("div");
+      el.className = "sparkle";
+      el.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (3.2 + Math.random() * 2) + "s";
+      el.style.fontSize = (14 + Math.random() * 10) + "px";
+      el.style.opacity = 0.45 + Math.random() * 0.35;
+      scene.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }
+
+    function createGlitter() {
+      const el = document.createElement("div");
+      el.className = "glitter";
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (4 + Math.random() * 2) + "s";
+      scene.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }
+
+    setInterval(createFlower, 85);
+    setInterval(createSparkle, 260);
+    setInterval(createGlitter, 130);
+
+    setTimeout(() => {
+      message.classList.add("show");
+    }, 5000);
+
+    setTimeout(() => {
+      window.scrollTo(0, 1);
+    }, 100);
+  </script>
+</body>
+</html>
